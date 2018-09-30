@@ -1,0 +1,4 @@
+*validation*.json
+node_modules
+w3cErrors
+.DS_Store

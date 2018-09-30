@@ -1,0 +1,30 @@
+{
+  "name": "part3finalprojedct",
+  "version": "1.0.0",
+  "description": "udacity part3 final project - memory game",
+  "main": "gruntfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olebedyn/udacity-FEnanodegree-part3.git"
+  },
+  "keywords": [
+    "memory",
+    "udacity"
+  ],
+  "author": "Oleg Lebedyn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/olebedyn/udacity-FEnanodegree-part3/issues"
+  },
+  "homepage": "https://github.com/olebedyn/udacity-FEnanodegree-part3#readme",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-imagemin": "^2.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-w3c-css-validation": "^0.1.0",
+    "grunt-w3c-html-validation": "^0.1.9"
+  }
+}

@@ -1,0 +1,52 @@
+.scoreboard {
+  display: flex;
+  width: 84vmin;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2vmin;
+  justify-content: space-around;
+  font-size: 1rem;
+}
+
+.rating {
+  width: 80%;
+}
+.game_board {
+    display: flex;
+    margin: 0 auto;
+    width: 75vmin;
+    height: 75vmin;
+    font-size: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    align-items: center;
+    background-image: linear-gradient(red, yellow);
+    padding: 10px 10px 10px 10px;
+}
+.box {
+    background: tomato;
+    color: white;
+    font-weight: bold;
+    width: 18vmin;
+    height: 18vmin;
+    position: relative;
+    text-align: center;
+    vertical-align: center;
+}
+
+.inner-hidden {
+    visibility: hidden;
+}
+
+.inner-visible {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    visibility: visible;
+    align-items: center;
+    justify-content: center;
+}
