@@ -14,35 +14,34 @@ function showCard() {
   // prevent from 3rd cell being opened
   if (clicked_cards.length === 2) {
     for (card of clicked_cards){
-      card.className = "inner-hidden";
+      this.firstChild.classList.remove('is-flipped');
     }
     clicked_cards = [];
     return;
   }
 
   // show card and temorarily remove onclick event to card can not be clicked when opened
-  const inner_box = this.firstChild;
+  this.firstChild.classList.add('is-flipped');
+  const inner_box = this.getElementsByClassName('inner-hidden');
   clicked_cards.push(inner_box);
-  inner_box.className = "inner-visible";
-  inner_box.parentElement.removeEventListener('click', showCard);
+  this.removeEventListener('click', showCard);
 
   // if 2nd card is opened - check whether cards martch
   if (clicked_cards.length === 2) {
-    let match = cardsMatch(clicked_cards[0], clicked_cards[1]);
-    //leave cards opened if matched
-    if (match){
-      for (card of clicked_cards) {
-        card.parentElement.style.background = 'green';
-        card.parentElement.classList.add('box-guessed');
-      }
-    }
-    // close cards and add on click even back
-    else {
-      for (card of clicked_cards) {
-            card.className = "inner-hidden";
-            card.parentElement.addEventListener('click', showCard);
-      }
-    }
+    // let match = cardsMatch(clicked_cards[0], clicked_cards[1]);
+    // // //leave cards opened if matched
+    // // if (match){
+    // //   for (card of clicked_cards) {
+    // //     card.parentElement.classList.add('box-guessed');
+    // //   }
+    // // }
+    // // close cards and add on click even back
+    // else {
+    //   for (card of clicked_cards) {
+    //         card.className = "inner-hidden";
+    //         card.parentElement.addEventListener('click', showCard);
+    //   }
+    // }
     clicked_cards = [];
   }
 
@@ -63,14 +62,27 @@ function createBoard(cards) {
   new_game_board.id='game_board';
   new_game_board.classList.add('game_board');
   for (const card of cards) {
-    let box = document.createElement('div');
+
+    // create elements
+    let scene = document.createElement('div');
+    let cell = document.createElement('div');
+    let cell_face_front = document.createElement('div');
+    let cell_face_back = document.createElement('div');
     let inner_box = document.createElement('div');
-    box.classList.add('box');
+
+    // add casses
+    scene.classList.add('scene');
+    cell.classList.add('cell');
+    cell_face_front.classList.add('cell__face', 'cell__face--front');
+    cell_face_back.classList.add('cell__face', 'cell__face--back');
     inner_box.classList.add('inner-hidden');
     inner_box.textContent = card.toString();
-    box.appendChild(inner_box);
-    box.addEventListener("click", showCard);
-    new_game_board.appendChild(box);
+    cell_face_back.appendChild(inner_box);
+    cell.appendChild(cell_face_front);
+    cell.appendChild(cell_face_back);
+    scene.appendChild(cell);
+    scene.addEventListener('click', showCard);
+    new_game_board.appendChild(scene);
   }
   document.getElementById('board').appendChild(new_game_board);
 }
