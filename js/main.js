@@ -68,16 +68,16 @@ function createBoard(cards) {
     let cell = document.createElement('div');
     let cell_face_front = document.createElement('div');
     let cell_face_back = document.createElement('div');
-    let inner_box = document.createElement('div');
+    // let inner_box = document.createElement('div');
 
     // add casses
     scene.classList.add('scene');
     cell.classList.add('cell');
     cell_face_front.classList.add('cell__face', 'cell__face--front');
     cell_face_back.classList.add('cell__face', 'cell__face--back');
-    inner_box.classList.add('inner-hidden');
-    inner_box.textContent = card.toString();
-    cell_face_back.appendChild(inner_box);
+    // inner_box.classList.add('inner-hidden');
+    // inner_box.textContent = card.toString();
+    // cell_face_back.appendChild(inner_box);
     cell.appendChild(cell_face_front);
     cell.appendChild(cell_face_back);
     scene.appendChild(cell);
