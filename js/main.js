@@ -1,5 +1,5 @@
-let cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]
-let clicked_cards = [];
+let cards = ['fa-android', 'fa-android', 'fa-angular', 'fa-angular', 'fa-apple', 'fa-apple', 'fa-aws', 'fa-aws', 'fa-chrome', 'fa-chrome', 'fa-docker', 'fa-docker', 'fa-linux', 'fa-linux', 'fa-windows', 'fa-windows']
+let clickedCards = [];
 
 // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function shuffleCards(a) {
@@ -12,37 +12,37 @@ function shuffleCards(a) {
 
 function showCard() {
   // prevent from 3rd cell being opened
-  if (clicked_cards.length === 2) {
-    for (card of clicked_cards){
+  if (clickedCards.length === 2) {
+    for (card of clickedCards){
       this.firstChild.classList.remove('is-flipped');
     }
-    clicked_cards = [];
+    clickedCards = [];
     return;
   }
 
   // show card and temorarily remove onclick event to card can not be clicked when opened
   this.firstChild.classList.add('is-flipped');
-  const inner_box = this.getElementsByClassName('inner-hidden');
-  clicked_cards.push(inner_box);
+  const innerText = this.getElementsByClassName('cell__inner');
+  clickedCards.push(innerText);
   this.removeEventListener('click', showCard);
 
   // if 2nd card is opened - check whether cards martch
-  if (clicked_cards.length === 2) {
-    // let match = cardsMatch(clicked_cards[0], clicked_cards[1]);
-    // // //leave cards opened if matched
-    // // if (match){
-    // //   for (card of clicked_cards) {
-    // //     card.parentElement.classList.add('box-guessed');
-    // //   }
-    // // }
-    // // close cards and add on click even back
-    // else {
-    //   for (card of clicked_cards) {
-    //         card.className = "inner-hidden";
-    //         card.parentElement.addEventListener('click', showCard);
-    //   }
-    // }
-    clicked_cards = [];
+  if (clickedCards.length === 2) {
+    let match = cardsMatch(clickedCards[0], clickedCards[1]);
+    //leave cards opened if matched
+    if (match){
+      for (card of clickedCards) {
+        card.parentElement.classList.add('box-guessed');
+      }
+    }
+    // close cards and add on click even back
+    else {
+      for (card of clickedCards) {
+            card.className = "cell__inner";
+            card.parentElement.addEventListener('click', showCard);
+      }
+    }
+    clickedCards = [];
   }
 
   // check if all cards are opened
@@ -54,37 +54,38 @@ function cardsMatch(card1, card2) {
 }
 
 function createBoard(cards) {
-  let game_board = document.getElementById('game_board')
-  if (game_board) {
-    game_board.remove();
+  let gameBoard = document.getElementById('game_board')
+  if (gameBoard) {
+    gameBoard.remove();
   }
-  new_game_board = document.createElement('div');
-  new_game_board.id='game_board';
-  new_game_board.classList.add('game_board');
+  newGameBoard = document.createElement('div');
+  newGameBoard.id='game_board';
+  newGameBoard.classList.add('game_board');
   for (const card of cards) {
-
     // create elements
     let scene = document.createElement('div');
     let cell = document.createElement('div');
-    let cell_face_front = document.createElement('div');
-    let cell_face_back = document.createElement('div');
-    // let inner_box = document.createElement('div');
+    let cellFaceFront = document.createElement('div');
+    let cellFaceBack = document.createElement('div');
+    let innerDiv = document.createElement('div');
+    let innerText = document.createElement('i');
 
     // add casses
     scene.classList.add('scene');
     cell.classList.add('cell');
-    cell_face_front.classList.add('cell__face', 'cell__face--front');
-    cell_face_back.classList.add('cell__face', 'cell__face--back');
-    // inner_box.classList.add('inner-hidden');
-    // inner_box.textContent = card.toString();
-    // cell_face_back.appendChild(inner_box);
-    cell.appendChild(cell_face_front);
-    cell.appendChild(cell_face_back);
+    cellFaceFront.classList.add('cell__face', 'cell__face--front');
+    cellFaceBack.classList.add('cell__face', 'cell__face--back');
+    innerDiv.classList.add('cell__inner');
+    innerText.classList.add('fab', card);
+    innerDiv.appendChild(innerText);
+    cellFaceBack.appendChild(innerDiv);
+    cell.appendChild(cellFaceFront);
+    cell.appendChild(cellFaceBack);
     scene.appendChild(cell);
     scene.addEventListener('click', showCard);
-    new_game_board.appendChild(scene);
+    newGameBoard.appendChild(scene);
   }
-  document.getElementById('board').appendChild(new_game_board);
+  document.getElementById('board').appendChild(newGameBoard);
 }
 
 function isGameOver() {
