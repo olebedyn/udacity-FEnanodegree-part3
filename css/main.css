@@ -46,8 +46,12 @@
   backface-visibility: hidden;
 }
 
+
 .cell__face--front {
   background: #507cd4;
+  animation-name: guessed;
+  animation-duration: 500ms;
+  animation-delay: 200ms;
 }
 
 .cell__face--back {
@@ -57,8 +61,63 @@
   transform: rotateY( 180deg );
 }
 
+
+@keyframes guessed {
+  0% {
+    transform: rotateY( 180deg ) scale(1);
+  }
+  25% {
+    transform: rotateY( 180deg ) scale(1.05);
+  }
+  50% {
+    transform: rotateY( 180deg ) scale(1.1);
+    background: #04b781;
+  }
+  75% {
+    transform: rotateY( 180deg ) scale(1.05);
+    background: #04b781;
+  }
+  100% {
+    transform: rotateY( 180deg ) scale(1);
+    background: #04b781;
+  }
+}
+
+@keyframes wrong {
+  0% {
+    transform: rotateY( 180deg ) scale(1);
+  }
+  25% {
+    transform: rotateY( 180deg ) scale(1.05);
+  }
+  50% {
+    transform: rotateY( 180deg ) scale(1.1);
+    background: #ea5151;
+  }
+  75% {
+    transform: rotateY( 180deg ) scale(1.05);
+    background: #ea5151;
+  }
+  100% {
+    transform: rotateY( 180deg ) scale(1);
+    background: #ea5151;
+  }
+}
+
 .cell__face--back--guessed {
-  background: green;
+  /* background: #04b781; */
+  animation-name: guessed;
+  animation-duration: 500ms;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
+}
+
+.cell__face--back--wrong {
+  /* background: #ea5151; */
+  animation-name: wrong;
+  animation-duration: 500ms;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards; 
 }
 
 .cell.is-flipped {

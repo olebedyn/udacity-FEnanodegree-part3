@@ -11,20 +11,17 @@ function shuffleCards(a) {
 }
 
 function showCard() {
+
   // prevent from 3rd cell being opened
   if (clickedCards.length === 2) {
-    for (card of clickedCards){
-      this.firstChild.classList.remove('is-flipped');
-    }
-    clickedCards = [];
     return;
   }
 
   // show card and temorarily remove onclick event to card can not be clicked when opened
-  this.firstChild.classList.add('is-flipped');
-  const innerText = this.getElementsByClassName('cell__inner');
-  clickedCards.push(innerText);
+  this.firstChild.classList.add('is-flipped')
   this.removeEventListener('click', showCard);
+  clickedCards.push(this);
+
 
   // if 2nd card is opened - check whether cards martch
   if (clickedCards.length === 2) {
@@ -32,25 +29,37 @@ function showCard() {
     //leave cards opened if matched
     if (match){
       for (card of clickedCards) {
-        card.parentElement.classList.add('box-guessed');
+        setTimeout((card) => {
+          card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--guessed');
+          isGameOver();
+        }, 1000, card);
       }
+      clickedCards = [];
+
     }
     // close cards and add on click even back
     else {
       for (card of clickedCards) {
-            card.className = "cell__inner";
-            card.parentElement.addEventListener('click', showCard);
+        setTimeout((card) => {
+          card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--wrong');
+        }, 1000, card);
+        setTimeout((card)=> {
+              card.firstChild.classList.remove('is-flipped')
+              card.addEventListener('click', showCard);
+              clickedCards = [];
+              setTimeout((card)=> {
+                card.getElementsByClassName('cell__face--back')[0].classList.remove('cell__face--back--wrong')
+              }, 500, card);
+          }, 2000, card);
       }
     }
-    clickedCards = [];
   }
 
-  // check if all cards are opened
-  isGameOver();
+
 }
 
 function cardsMatch(card1, card2) {
-  return card1.textContent === card2.textContent ? true : false;
+  return card1.getElementsByClassName('fab')[0].classList[1] === card2.getElementsByClassName('fab')[0].classList[1] ? true : false;
 }
 
 function createBoard(cards) {
@@ -89,7 +98,7 @@ function createBoard(cards) {
 }
 
 function isGameOver() {
-  if (document.getElementsByClassName('box-guessed').length == 16) {
+  if (document.getElementsByClassName('cell__face--back--guessed').length === 16) {
     alert('you won a game');
     createBoard(shuffleCards(cards));
   }
