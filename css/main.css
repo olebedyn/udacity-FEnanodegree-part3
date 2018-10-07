@@ -1,15 +1,26 @@
 .scoreboard {
   display: flex;
-  width: 82vmin;
+  width: 85vmin;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2vmin;
-  justify-content: space-around;
-  font-size: 1rem;
+  justify-content: space-between;
+  font-size: 5vmin;
+  color: #827fff;
 }
 
 .rating {
-  width: 80%;
+  width: 40%;
+}
+.timer {
+  width: 35%;
+}
+.refresh {
+  width: 10%;
+}
+
+.separator {
+  width: 15%;
 }
 
 .game_board {
@@ -49,9 +60,6 @@
 
 .cell__face--front {
   background: #507cd4;
-  animation-name: guessed;
-  animation-duration: 500ms;
-  animation-delay: 200ms;
 }
 
 .cell__face--back {
@@ -117,7 +125,7 @@
   animation-name: wrong;
   animation-duration: 500ms;
   animation-delay: 200ms;
-  animation-fill-mode: forwards; 
+  animation-fill-mode: forwards;
 }
 
 .cell.is-flipped {
@@ -130,4 +138,57 @@
   display:flex;
   align-items:center;
   justify-content: center;
+}
+
+
+/* Modal box */
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 30vh auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 30%;
+  position: relative;
+  /* transition: all 5s ease-in-out; */
+  background: #1a5675;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.popup .header {
+  color: #d6e9ec;
+  width: 100%;
+  font-size: 1em;
+  text-align: center;
+}
+
+button.ok {
+  background: #1f8ca9;
+  color: #d6e9ec;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.7em;
+}
+
+.title {
+  width: 100%;
 }
