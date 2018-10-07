@@ -29,10 +29,8 @@
     margin: 0 auto;
     width: 80vmin;
     height: 80vmin;
-    font-size: 1rem;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-content: space-around;
     align-items: center;
     background-image: linear-gradient(#4efff0, #827fff);
     padding: 1% 1% 1% 1%;
@@ -49,12 +47,16 @@
   transform-style: preserve-3d;
 }
 
+.cell.is-flipped {
+  transform: rotateY(180deg);
+}
+
 .cell__face {
   position: absolute;
   height: 100%;
   width: 100%;
-  border-radius: 10%;
   backface-visibility: hidden;
+  border-radius: 10%;
 }
 
 
@@ -112,34 +114,26 @@
   }
 }
 
-.cell__face--back--guessed {
-  /* background: #04b781; */
-  animation-name: guessed;
+.cell__face--back--animated {
   animation-duration: 500ms;
   animation-delay: 200ms;
   animation-fill-mode: forwards;
+}
+
+.cell__face--back--guessed {
+  animation-name: guessed;
 }
 
 .cell__face--back--wrong {
-  /* background: #ea5151; */
   animation-name: wrong;
-  animation-duration: 500ms;
-  animation-delay: 200ms;
-  animation-fill-mode: forwards;
-}
-
-.cell.is-flipped {
-  transform: rotateY(180deg);
 }
 
 .cell__inner {
-  width: 100%;
   height: 100%;
   display:flex;
   align-items:center;
   justify-content: center;
 }
-
 
 /* Modal box */
 .overlay {
@@ -166,7 +160,6 @@
   border: none;
   width: 30%;
   position: relative;
-  /* transition: all 5s ease-in-out; */
   background: #1a5675;
   display: flex;
   flex-wrap: wrap;

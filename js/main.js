@@ -50,7 +50,7 @@ function showCard() {
       if (match){
         for (card of clickedCards) {
           setTimeout((card) => {
-            card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--guessed');
+            card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--animated', 'cell__face--back--guessed');
             isGameOver();
           }, 1000, card);
         }
@@ -61,14 +61,14 @@ function showCard() {
       else {
         for (card of clickedCards) {
           setTimeout((card) => {
-            card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--wrong');
+            card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--animated', 'cell__face--back--wrong');
           }, 1000, card);
           setTimeout((card)=> {
                 card.firstChild.classList.remove('is-flipped')
                 card.addEventListener('click', showCard);
                 clickedCards = [];
                 setTimeout((card)=> {
-                  card.getElementsByClassName('cell__face--back')[0].classList.remove('cell__face--back--wrong')
+                  card.getElementsByClassName('cell__face--back')[0].classList.remove('cell__face--back--animated', 'cell__face--back--wrong')
                 }, 500, card);
             }, 2000, card);
         }
