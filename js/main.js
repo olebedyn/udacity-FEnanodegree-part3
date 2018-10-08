@@ -2,7 +2,6 @@ const WIN_GAME_CARDS_NUMBER = 16;
 const FIVE_STAR_MOVES_NUMBER = 12;
 const RATING_CHANGE_STEP = 3;
 const ZERO_STAR_MOVES_NUMBER = 12 + 5 * RATING_CHANGE_STEP;
-
 let cards = ['fa-android', 'fa-android', 'fa-angular', 'fa-angular', 'fa-apple', 'fa-apple', 'fa-aws', 'fa-aws', 'fa-chrome', 'fa-chrome', 'fa-docker', 'fa-docker', 'fa-linux', 'fa-linux', 'fa-windows', 'fa-windows']
 let clickedCards = [];
 let gameStarted = false;
@@ -20,7 +19,7 @@ function shuffleCards(a) {
 }
 
 function showCard() {
-  // start timer when first card in clicked and game starts
+  // start count up timer when first card in clicked and game starts
   if (!gameStarted) {
     gameStarted = true;
     gameStartTimestamp = Math.floor(Date.now() / 1000);
@@ -33,15 +32,12 @@ function showCard() {
   }
 
   // prevent from 3rd cell being opened
-  if (clickedCards.length === 2) {
-    return;
-  }
-  else {
+  if (clickedCards.length <= 1) {
     // show card and temorarily remove onclick event to card can not be clicked when opened
     this.firstChild.classList.add('is-flipped')
     this.removeEventListener('click', showCard);
     clickedCards.push(this);
-    // if 2nd card is opened - check whether cards martch
+    // if it's the 2nd card being opened - check whether cards martch
     if (clickedCards.length === 2) {
       movesNumber++;
       updateRating();
@@ -63,6 +59,8 @@ function showCard() {
           setTimeout((card) => {
             card.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--animated', 'cell__face--back--wrong');
           }, 1000, card);
+
+          // close cards
           setTimeout((card)=> {
                 card.firstChild.classList.remove('is-flipped')
                 card.addEventListener('click', showCard);
@@ -151,9 +149,9 @@ function resetScoreboard(){
 }
 
 function initGame() {
-  if (document.getElementById('popup').classList.contains('overlay-visible'))
-  {
-    document.getElementById('popup').classList.remove('overlay-visible');
+  // hide popup in case game is re-started by 'new game' button in modal
+  if (document.getElementById('popup').classList.contains('overlay-visible')){
+      document.getElementById('popup').classList.remove('overlay-visible');
   }
   clickedCards = [];
   gameStarted = false;
