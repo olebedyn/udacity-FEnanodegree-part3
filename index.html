@@ -11,27 +11,28 @@
   <body>
   <main>
     <div id="score" class="score">
-      <div id="rating" class="rating">
+      <div id="rating" class="score__rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
       </div>
-      <div class="separator"></div>
-      <div id="timer" class="timer"></div>
-      <div id="reset" class="refresh"><i class="fas fa-redo" onclick="initGame()"></i></div>
+      <div id="reset" class="score__refresh"><i class="fas fa-redo" onclick="initGame()"></i></div>
+      <div id="moves" class="score__moves">Moves: 0</div>
+      <div id="timer" class="score__timer">Time: 0m 0s</div>
     </div>
     <div id="board">
     </div>
   </main>
   <div id="popup" class="overlay">
-  	<div class="content">
-      <div class="title">
-        <h2 class="header">Congratulations! You won in memory game!</h2>
+  	<div class="popup__content">
+      <div class="popup__title">
+        <h2 class="popup__header">Congratulations! You won in memory game!</h2>
+        <h2 class="popup__header" id="game-stats"></h2>
       </div>
-      <div class="ok">
-        <button class="ok" id="new_game" onclick="initGame()">New game</button>
+      <div id="popup__button">
+        <button class="popup__button" id="new-game" onclick="initGame()">New game</button>
       </div>
     </div>
 	</div>

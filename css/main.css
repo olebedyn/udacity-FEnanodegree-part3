@@ -1,29 +1,31 @@
 .score {
   display: flex;
-  width: 85vmin;
+  flex-wrap: wrap;
+  width: 80vmin;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2vmin;
-  justify-content: space-between;
   font-size: 5vmin;
   color: #827fff;
 }
 
-.rating {
-  width: 40%;
+.score__rating {
+  width: 50%;
 }
-.timer {
-  width: 35%;
+.score__timer {
+  width: 50%;
+  text-align: right;
 }
-.refresh {
-  width: 10%;
-}
-
-.separator {
-  width: 15%;
+.score__refresh {
+  width: 50%;
+  text-align: right;
 }
 
-.game_board {
+.score__moves {
+  width: 50%;
+}
+
+.game-board {
     border-radius: 5%;
     display: flex;
     margin: 0 auto;
@@ -148,17 +150,17 @@
   opacity: 0;
 }
 
-.overlay-visible {
+.overlay--visible {
   visibility: visible;
   opacity: 1;
 }
 
-.popup .content {
+.popup__content {
   margin: 30vh auto;
   padding: 10px;
   border-radius: 5px;
   border: none;
-  width: 30%;
+  width: 40%;
   position: relative;
   background: #1a5675;
   display: flex;
@@ -166,14 +168,14 @@
   justify-content: center;
 }
 
-.popup .content .header {
+.popup__header {
   color: #d6e9ec;
   width: 100%;
-  font-size: 1em;
+  font-size: 1vmin;
   text-align: center;
 }
 
-.popup .content button.ok {
+.popup__button {
   background: #1f8ca9;
   color: #d6e9ec;
   height: 25px;
@@ -182,6 +184,6 @@
   font-size: 0.7em;
 }
 
-.title {
+.popup__title {
   width: 100%;
 }

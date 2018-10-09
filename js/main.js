@@ -10,20 +10,20 @@ let movesNumber = 0;
 
 
 function createBoard(cells) {
-  let gameBoard = document.getElementById('game_board');
+  let gameBoard = document.getElementById('game-board');
 
   //cleanup the board if already exists
   if (gameBoard) {
     gameBoard.remove();
   }
   gameBoard = document.createElement('div');
-  gameBoard.id='game_board';
-  gameBoard.classList.add('game_board');
+  gameBoard.id='game-board';
+  gameBoard.classList.add('game-board');
 
   for (const cell of cells) {
     // create elements
     let scene = document.createElement('div');
-    let cell = document.createElement('div');
+    let cellContainer = document.createElement('div');
     let cellFaceFront = document.createElement('div');
     let cellFaceBack = document.createElement('div');
     let innerDiv = document.createElement('div');
@@ -31,19 +31,18 @@ function createBoard(cells) {
 
     // add classes
     scene.classList.add('scene');
-    cell.classList.add('cell');
+    cellContainer.classList.add('cell');
     cellFaceFront.classList.add('cell__face', 'cell__face--front');
     cellFaceBack.classList.add('cell__face', 'cell__face--back');
     innerDiv.classList.add('cell__inner');
-    innerText.classList.add('fab', card);
-
+    innerText.classList.add('fab', cell);
 
     // structure
     innerDiv.appendChild(innerText);
     cellFaceBack.appendChild(innerDiv);
-    cell.appendChild(cellFaceFront);
-    cell.appendChild(cellFaceBack);
-    scene.appendChild(cell);
+    cellContainer.appendChild(cellFaceFront);
+    cellContainer.appendChild(cellFaceBack);
+    scene.appendChild(cellContainer);
     scene.addEventListener('click', showCell);
     gameBoard.appendChild(scene);
   }
@@ -80,6 +79,7 @@ function showCell() {
 
     if (clickedCells.length === 2) { // if it's the 2nd card being opened - check whether cells martch
       movesNumber++;
+      document.getElementById('moves').innerText = 'Moves: ' + movesNumber;
       updateRating();
       let match = cellsMatch(clickedCells[0], clickedCells[1]);
 
@@ -106,8 +106,8 @@ function showCell() {
                 clickedCells = [];
                 setTimeout((cell) => {
                   cell.getElementsByClassName('cell__face--back')[0].classList.remove('cell__face--back--animated', 'cell__face--back--wrong')
-                }, 500, card);
-            }, 2000, card);
+                }, 500, cell);
+            }, 2000, cell);
         }
       }
     }
@@ -115,12 +115,14 @@ function showCell() {
 }
 
 function cellsMatch(cell1, cell2) {
-  return cell1.getElementsByClassName('fab')[0].classList[1] === cell2.getElementsByClassName('fab')[0].classList[1] ? true : false;
+  return cell1.getElementByClassName('fab')[0].classList[1] === cell2.getElementsByClassName('fab')[0].classList[1] ? true : false;
 }
 
 function isGameOver() {
   if (document.getElementsByClassName('cell__face--back--guessed').length === WIN_GAME_CELLS_NUMBER) {
-    document.getElementById('popup').classList.add('overlay-visible');
+    clearInterval(gameTimeInterval);
+    document.getElementById('game-stats').innerText = 'Moves: ' + movesNumber +', '+ document.getElementById('timer').innerText;
+    document.getElementById('popup').classList.add('overlay--visible');
   }
 }
 
@@ -142,7 +144,7 @@ function calcNmberOfBlankStars() {
 function resetScoreboard(){
   // Reset timer
   clearInterval(gameTimeInterval);
-  document.getElementById('timer').innerHTML = '';
+  document.getElementById('timer').innerHTML = 'Time: 0m 0s';
 
   // Rating should be back to 5-star also
   for (star of document.getElementById('rating').children) {
@@ -153,7 +155,7 @@ function resetScoreboard(){
 }
 
 function initGame() {
-  document.getElementById('popup').classList.remove('overlay-visible'); // hide popup in case game is re-started by 'new game' button in modal
+  document.getElementById('popup').classList.remove('overlay--visible'); // hide popup in case game is re-started by 'new game' button in modal
   clickedCells = [];
   gameStarted = false;
   movesNumber = 0;
