@@ -1,4 +1,4 @@
-.scoreboard {
+.score {
   display: flex;
   width: 85vmin;
   margin-left: auto;
@@ -153,7 +153,7 @@
   opacity: 1;
 }
 
-.popup {
+.popup .content {
   margin: 30vh auto;
   padding: 10px;
   border-radius: 5px;
@@ -166,14 +166,14 @@
   justify-content: center;
 }
 
-.popup .header {
+.popup .content .header {
   color: #d6e9ec;
   width: 100%;
   font-size: 1em;
   text-align: center;
 }
 
-button.ok {
+.popup .content button.ok {
   background: #1f8ca9;
   color: #d6e9ec;
   height: 25px;

@@ -10,7 +10,7 @@
   </head>
   <body>
   <main>
-    <div class="scoreboard">
+    <div id="score" class="score">
       <div id="rating" class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -20,13 +20,13 @@
       </div>
       <div class="separator"></div>
       <div id="timer" class="timer"></div>
-      <div class="refresh"><i class="fas fa-redo" onclick="initGame()"></i></div>
+      <div id="reset" class="refresh"><i class="fas fa-redo" onclick="initGame()"></i></div>
     </div>
     <div id="board">
     </div>
   </main>
   <div id="popup" class="overlay">
-  	<div class="popup">
+  	<div class="content">
       <div class="title">
         <h2 class="header">Congratulations! You won in memory game!</h2>
       </div>
