@@ -49,6 +49,7 @@ function createBoard(cells) {
   document.getElementById('board').appendChild(gameBoard);
 }
 
+
 // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function shuffleCells(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -63,17 +64,15 @@ function showCell() {
   if (!gameStartTimestamp) {
     gameStartTimestamp = Math.floor(Date.now() / 1000);
     gameTimeInterval = setInterval( () => {
-      let elapsedTime = Math.floor(Date.now() / 1000) - gameStartTimestamp;
+      const elapsedTime = Math.floor(Date.now() / 1000) - gameStartTimestamp;
       document.getElementById('timer').innerHTML = 'Time: ' + Math.floor(elapsedTime / 60) + 'm '+ (elapsedTime - Math.floor(elapsedTime / 60) * 60) + 's';
-    },
-      1000
-    );
+    }, 1000);
   }
 
   // prevent from 3rd cell being opened (clickedCells already 2)
   if (clickedCells.length <= 1) {
     // show card and temorarily remove onclick event to card can not be clicked when opened
-    this.firstChild.classList.add('is-flipped')
+    this.firstChild.classList.add('is-flipped');
     this.removeEventListener('click', showCell);
     clickedCells.push(this);
 
@@ -83,29 +82,27 @@ function showCell() {
       updateRating();
       let match = cellsMatch(clickedCells[0], clickedCells[1]);
 
-      //leave cells open if matched
-      if (match){
+      if (match){ //leave cells open if matched
         for (cell of clickedCells) {
-          setTimeout((cell) => {
-            cell.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--animated', 'cell__face--back--guessed');
+          setTimeout((cell) => { //animate the match but wait till both cells flipped
+            cell.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--animated', 'cell__face--guessed');
             isGameOver();
           }, 1000, cell);
         }
         clickedCells = [];
 
-      } else { // close cells and add on click even back
+      } else { // close cells and add on click event back
         for (cell of clickedCells) {
-          setTimeout((cell) => {
-            cell.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--back--animated', 'cell__face--back--wrong');
+          setTimeout((cell) => { //animate the mismatch but wait till both cells flipped
+            cell.getElementsByClassName('cell__face--back')[0].classList.add('cell__face--animated', 'cell__face--wrong');
           }, 1000, cell);
 
-          // close cells
-          setTimeout((cell)=> {
-                cell.firstChild.classList.remove('is-flipped')
+          setTimeout((cell)=> { // close cells after the mismatch animation finishes
+                cell.firstChild.classList.remove('is-flipped');
                 cell.addEventListener('click', showCell);
                 clickedCells = [];
-                setTimeout((cell) => {
-                  cell.getElementsByClassName('cell__face--back')[0].classList.remove('cell__face--back--animated', 'cell__face--back--wrong')
+                setTimeout((cell) => { //remove mismatched styles but only after cells flip back
+                  cell.getElementsByClassName('cell__face--back')[0].classList.remove('cell__face--animated', 'cell__face--wrong');
                 }, 500, cell);
             }, 2000, cell);
         }
@@ -115,11 +112,11 @@ function showCell() {
 }
 
 function cellsMatch(cell1, cell2) {
-  return cell1.getElementByClassName('fab')[0].classList[1] === cell2.getElementsByClassName('fab')[0].classList[1] ? true : false;
+  return cell1.getElementsByClassName('fab')[0].classList.value === cell2.getElementsByClassName('fab')[0].classList.value ? true : false;
 }
 
 function isGameOver() {
-  if (document.getElementsByClassName('cell__face--back--guessed').length === WIN_GAME_CELLS_NUMBER) {
+  if (document.getElementsByClassName('cell__face--guessed').length === WIN_GAME_CELLS_NUMBER) {
     clearInterval(gameTimeInterval);
     document.getElementById('game-stats').innerText = 'Moves: ' + movesNumber +', '+ document.getElementById('timer').innerText;
     document.getElementById('popup').classList.add('overlay--visible');
@@ -129,7 +126,7 @@ function isGameOver() {
 function updateRating() {
   if (movesNumber > FIVE_STAR_MOVES_NUMBER && movesNumber < ZERO_STAR_MOVES_NUMBER ){
       let numberOfBlankStars = calcNmberOfBlankStars();
-      let stars = document.getElementById('rating').children
+      let stars = document.getElementById('rating').children;
       for (let i = numberOfBlankStars - 1; i >= 0; i--){
         stars[stars.length - 1 - i].classList.replace('fas', 'far');
       }
@@ -144,12 +141,12 @@ function calcNmberOfBlankStars() {
 function resetScoreboard(){
   // Reset timer
   clearInterval(gameTimeInterval);
-  document.getElementById('timer').innerHTML = 'Time: 0m 0s';
-
+  document.getElementById('timer').innerText = 'Time: 0m 0s';
+  document.getElementById('moves').innerText = 'Moves: 0';
   // Rating should be back to 5-star also
   for (star of document.getElementById('rating').children) {
     if (star.classList.contains('far')) {
-      star.classList.replace('far', 'fas')
+      star.classList.replace('far', 'fas');
     }
   }
 }

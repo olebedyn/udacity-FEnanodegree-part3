@@ -6,7 +6,8 @@
   margin-right: auto;
   margin-bottom: 2vmin;
   font-size: 5vmin;
-  color: #827fff;
+  color: #5a5473;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .score__rating {
@@ -116,17 +117,17 @@
   }
 }
 
-.cell__face--back--animated {
+.cell__face--animated {
   animation-duration: 500ms;
   animation-delay: 200ms;
   animation-fill-mode: forwards;
 }
 
-.cell__face--back--guessed {
+.cell__face--guessed {
   animation-name: guessed;
 }
 
-.cell__face--back--wrong {
+.cell__face--wrong {
   animation-name: wrong;
 }
 
@@ -138,7 +139,7 @@
 }
 
 /* Modal box */
-.overlay {
+.popup {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -156,23 +157,25 @@
 }
 
 .popup__content {
-  margin: 30vh auto;
+  margin: 20vh auto;
   padding: 10px;
-  border-radius: 5px;
-  border: none;
   width: 40%;
-  position: relative;
   background: #1a5675;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  text-align: center;
+}
+
+.popup__title {
+  width: 100%;
 }
 
 .popup__header {
   color: #d6e9ec;
   width: 100%;
-  font-size: 1vmin;
-  text-align: center;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .popup__button {
@@ -181,9 +184,6 @@
   height: 25px;
   border: none;
   border-radius: 3px;
-  font-size: 0.7em;
-}
-
-.popup__title {
-  width: 100%;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
 }
